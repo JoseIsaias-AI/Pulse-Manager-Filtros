@@ -1,0 +1,216 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>UC-13 - Segmentação de Alunos</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: Arial, Helvetica, sans-serif;
+      color: #17202a;
+      background: #f5f7f8;
+    }
+
+    main {
+      max-width: 1120px;
+      margin: 0 auto;
+      padding: 32px 24px;
+    }
+
+    h1 {
+      margin: 0 0 8px;
+      font-size: 32px;
+    }
+
+    p {
+      margin: 0 0 24px;
+      color: #53616c;
+    }
+
+    form {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 14px;
+      padding: 18px;
+      margin-bottom: 24px;
+      background: #ffffff;
+      border: 1px solid #d9e1e5;
+      border-radius: 8px;
+    }
+
+    label {
+      display: grid;
+      gap: 6px;
+      font-weight: 700;
+      font-size: 14px;
+    }
+
+    input,
+    select {
+      width: 100%;
+      padding: 10px;
+      border: 1px solid #c8d2d8;
+      border-radius: 6px;
+      font-size: 14px;
+    }
+
+    .actions {
+      display: flex;
+      align-items: end;
+      gap: 10px;
+    }
+
+    button,
+    a.button {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 40px;
+      padding: 0 14px;
+      color: #ffffff;
+      background: #2459d6;
+      border: 0;
+      border-radius: 6px;
+      font-weight: 700;
+      text-decoration: none;
+      cursor: pointer;
+    }
+
+    a.button {
+      color: #17202a;
+      background: #e8edf0;
+    }
+
+    .error {
+      padding: 12px 14px;
+      margin-bottom: 18px;
+      color: #7b1d1d;
+      background: #fde9e9;
+      border: 1px solid #f2b8b8;
+      border-radius: 6px;
+      font-weight: 700;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      background: #ffffff;
+      border: 1px solid #d9e1e5;
+      border-radius: 8px;
+      overflow: hidden;
+    }
+
+    th,
+    td {
+      padding: 12px;
+      border-bottom: 1px solid #edf1f3;
+      text-align: left;
+      font-size: 14px;
+    }
+
+    th {
+      background: #edf4f7;
+      font-size: 13px;
+    }
+
+    .pill {
+      display: inline-block;
+      padding: 3px 8px;
+      border-radius: 999px;
+      background: #e5efff;
+      font-size: 12px;
+      font-weight: 700;
+    }
+
+    @media (max-width: 860px) {
+      form {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+<body>
+  <main>
+    <h1>Segmentação de Alunos</h1>
+    <p>UC-13 - Localizar alunos da Pulse Mais por critérios combinados.</p>
+
+    <% if (error) { %>
+      <div class="error"><%= error %></div>
+    <% } %>
+
+    <form method="get" action="/alunos/segmentacao">
+      <label>
+        Programa
+        <select name="programa">
+          <option value="">Todos</option>
+          <option value="Mentoria de permanencia" <%= filtros.programa === 'Mentoria de permanencia' ? 'selected' : '' %>>Mentoria de permanência</option>
+          <option value="Jornada de empregabilidade" <%= filtros.programa === 'Jornada de empregabilidade' ? 'selected' : '' %>>Jornada de empregabilidade</option>
+          <option value="Portal de acompanhamento" <%= filtros.programa === 'Portal de acompanhamento' ? 'selected' : '' %>>Portal de acompanhamento</option>
+        </select>
+      </label>
+
+      <label>
+        Risco
+        <select name="risco">
+          <option value="">Todos</option>
+          <option value="baixo" <%= filtros.risco === 'baixo' ? 'selected' : '' %>>Baixo</option>
+          <option value="medio" <%= filtros.risco === 'medio' ? 'selected' : '' %>>Médio</option>
+          <option value="alto" <%= filtros.risco === 'alto' ? 'selected' : '' %>>Alto</option>
+        </select>
+      </label>
+
+      <label>
+        Status
+        <select name="status">
+          <option value="">Todos</option>
+          <option value="ativo" <%= filtros.status === 'ativo' ? 'selected' : '' %>>Ativo</option>
+          <option value="egresso" <%= filtros.status === 'egresso' ? 'selected' : '' %>>Egresso</option>
+          <option value="em_acompanhamento" <%= filtros.status === 'em_acompanhamento' ? 'selected' : '' %>>Em acompanhamento</option>
+        </select>
+      </label>
+
+      <label>
+        Busca
+        <input name="busca" value="<%= filtros.busca || '' %>" placeholder="Nome ou e-mail">
+      </label>
+
+      <div class="actions">
+        <button type="submit">Filtrar</button>
+        <a class="button" href="/alunos/segmentacao">Limpar</a>
+      </div>
+    </form>
+
+    <p><strong><%= total %></strong> aluno(s) encontrado(s).</p>
+
+    <table>
+      <thead>
+        <tr>
+          <th>#</th>
+          <th>Nome</th>
+          <th>E-mail</th>
+          <th>Programa</th>
+          <th>Categoria</th>
+          <th>Risco</th>
+          <th>Status</th>
+          <th>Engajamento</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% alunos.forEach((aluno) => { %>
+          <tr>
+            <td><%= aluno.idAluno %></td>
+            <td><%= aluno.nome %></td>
+            <td><%= aluno.email %></td>
+            <td><%= aluno.programa %></td>
+            <td><span class="pill"><%= aluno.categoria %></span></td>
+            <td><%= aluno.riscoEvasao %></td>
+            <td><%= aluno.status %></td>
+            <td><%= aluno.engajamento %>%</td>
+          </tr>
+        <% }) %>
+      </tbody>
+    </table>
+  </main>
+</body>
+</html>
