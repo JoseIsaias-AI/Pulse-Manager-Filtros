@@ -1,6 +1,13 @@
-# Pulse Mais — UC-13 Segmentação de Alunos
+# Pulse Mais: UC-13 Segmentação de Alunos
 
-Projeto em **Node.js**, **TypeScript**, **Express**, **TypeORM**, **PostgreSQL**, **Jest** e **Supertest** para implementar e testar o fluxo **UC-13 — Localizar e segmentar alunos** do sistema Pulse Mais.
+![TypeScript](https://img.shields.io/badge/TypeScript-5-3178C6?logo=typescript&logoColor=white)
+![Node.js](https://img.shields.io/badge/Node.js-Express-339933?logo=nodedotjs&logoColor=white)
+![PostgreSQL](https://img.shields.io/badge/PostgreSQL-TypeORM-4169E1?logo=postgresql&logoColor=white)
+![Jest](https://img.shields.io/badge/Jest-Supertest-C21325?logo=jest&logoColor=white)
+
+> Este repositório isola o fluxo de segmentação de alunos (UC-13). O sistema completo está em [Pulse Manager](https://github.com/JoseIsaias-AI/Pulse-Manager).
+
+Projeto em **Node.js**, **TypeScript**, **Express**, **TypeORM**, **PostgreSQL**, **Jest** e **Supertest** para implementar e testar o fluxo **UC-13: Localizar e segmentar alunos** do sistema Pulse Mais.
 
 O foco deste repositório é demonstrar um fluxo real do domínio da Pulse Mais com separação em camadas, persistência de dados, migrations SQL, tela web, API REST e testes de integração automatizados.
 
@@ -35,7 +42,7 @@ O projeto cobre:
 
 ## Fluxo Implementado
 
-**Caso de uso:** `UC-13 — Localizar e segmentar alunos`
+**Caso de uso:** `UC-13: Localizar e segmentar alunos`
 
 **Endpoint principal:**
 
@@ -370,10 +377,10 @@ Tests:       4 passed, 4 total
 
 | Requisito Funcional | Regra de Negócio | Caso de Teste | Tipo |
 |---|---|---|---|
-| RF012 — Localizar e segmentar alunos com múltiplos critérios combinados. | A segmentação deve aceitar filtros combinados de perfil, jornada e risco. | CT01 | Sucesso |
-| RF012 — Localizar e segmentar alunos com múltiplos critérios combinados. | A consulta operacional não deve ser executada sem critério. | CT02 | Regra de negócio violada |
-| RF012 — Localizar e segmentar alunos com múltiplos critérios combinados. | Os parâmetros devem respeitar tipos e domínios válidos. | CT03 | Payload inválido |
-| RF012/RF003 — Segmentar e consultar alunos cadastrados. | O resultado deve vir de dados persistidos no banco de teste. | CT04 | Persistência |
+| RF012: Localizar e segmentar alunos com múltiplos critérios combinados. | A segmentação deve aceitar filtros combinados de perfil, jornada e risco. | CT01 | Sucesso |
+| RF012: Localizar e segmentar alunos com múltiplos critérios combinados. | A consulta operacional não deve ser executada sem critério. | CT02 | Regra de negócio violada |
+| RF012: Localizar e segmentar alunos com múltiplos critérios combinados. | Os parâmetros devem respeitar tipos e domínios válidos. | CT03 | Payload inválido |
+| RF012/RF003: Segmentar e consultar alunos cadastrados. | O resultado deve vir de dados persistidos no banco de teste. | CT04 | Persistência |
 
 ## Documentação Complementar
 
@@ -391,3 +398,9 @@ Tests:       4 passed, 4 total
 ## Status
 
 Projeto funcional, com tela web, API REST, migrations SQL e testes de integração passando.
+
+## Autor
+
+**José Isaías** · Engenharia de Computação no Inteli ·
+[LinkedIn](https://www.linkedin.com/in/joseisaias) ·
+[GitHub](https://github.com/JoseIsaias-AI)
